@@ -3,7 +3,9 @@
 ## Instructions For Setting Up
 
 First you need to copy the link inside the green button named "<> Code".
+</br>
 Once you copied it, open visual studio code and press "Clone Repository" and a search bar will appear in the top area, now paste the link in that search bar and press enter.
+</br>
 Then, type this inside the TERMINAL in order:
 
 - composer install
