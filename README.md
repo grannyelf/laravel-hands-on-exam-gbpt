@@ -2,9 +2,15 @@
 
 ## Instructions For Setting Up
 
-bla bla bla:
+First you need to copy the link inside the green button named "<> Code".
+Once you copied it, open visual studio code and press "Clone Repository" and a search bar will appear in the top area, now paste the link in that search bar and press enter.
+Then, type this inside the TERMINAL in order:
 
-- test test test.
+- composer install
+- npm install
+- cp .env.example .env
+- php artisan key:generate
+- php artisan migrate
 
 blaaaaaaaaaa.
 
