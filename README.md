@@ -7,12 +7,13 @@ Once you copied it, open visual studio code and press "Clone Repository" and a s
 Then, type this inside the TERMINAL in order:
 
 - composer install
-- npm install
-- cp .env.example .env
+- npm install preline@3.2.3
+- Optional: npm run build
+- copy .env.example .env
 - php artisan key:generate
-- php artisan migrate
+- php artisan migrate --seed
 
-blaaaaaaaaaa.
+Once finish to test the code, type "php artisan serve" in the terminal, then ctrl + click the IP given.
 
 ## License
 
