@@ -2,10 +2,17 @@
 
 use App\Livewire\Auth\LogIn;
 use App\Livewire\Auth\Register;
-use App\Livewire\Pages\Admin\Dashboard;
+use App\Livewire\Pages\Admin\Dashboard as Admin;
+use App\Livewire\Pages\Admin\Role\CreateRole;
+use App\Livewire\Pages\Admin\Role\EditRole;
+use App\Livewire\Pages\Admin\Role\IndexRole;
+use App\Livewire\Pages\Admin\User\CreateUser;
+use App\Livewire\Pages\Admin\User\EditUser;
+use App\Livewire\Pages\Admin\User\IndexUser;
 use App\Livewire\Pages\Employee\Dashboard as Employee;
 use App\Livewire\Pages\Owner\Dashboard as Owner;
 use App\Livewire\Pages\Public\Index;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -16,8 +23,27 @@ Route::get('/', Index::class)->name('welcome');
 Route::get('/login', LogIn::class)->name('login');
 Route::get('/register', Register::class)->name('register');
 
+Route::post('/logout', function () {
+    Auth::logout();
+
+    request()->seesion()->invalidate();
+    request()->session()->regenerateToken();
+
+    return redirect()->route('welcome');
+})->name('logout')->middleware('auth');
+
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/dashboard', Dashboard::class)->name('admin.dashboard');
+    Route::get('/dashboard', Admin::class)->name('admin.dashboardd');
+
+    Route::get('/roles/create', CreateRole::class)->name('admin.create.role');
+    Route::get('/roles/{id}', EditRole::class)->name('admin.edit.role');
+    Route::get('/roles', IndexRole::class)->name('admin.index.role');
+    
+    Route::get('/user/create', CreateUser::class)->name('admin.create.user');
+    Route::get('/user/{id}', EditUser::class)->name('admin.edit.user');
+    Route::get('/user', IndexUser::class)->name('admin.index.user');
+
+    Route::get('/history/user', Admin::class)->name('admin.history.user');
 });
 
 Route::middleware(['auth', 'owner'])->group(function () {

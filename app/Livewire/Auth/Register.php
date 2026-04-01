@@ -15,7 +15,8 @@ class Register extends Component
     protected $rules = [
         'name' => 'required|string|max:255|min:2',
         'email' => 'required|email|max:255|min:10|unique:users',
-        'password' => 'required|string|max:255|min:8|confirmed',
+        'password' => 'required|string|min:6|max:255',
+        'password_confirmation' => 'required|string|min:6|same:password|max:255',
     ];
 
     public function messages()
@@ -33,8 +34,13 @@ class Register extends Component
 
             'password.required' => 'The password field is required.',
             'password.max' => 'The password must not be greater than 255 characters.',
-            'password.min' => 'The password must be at least 8 characters.',
+            'password.min' => 'The password must be at least 6 characters.',
             'password.confirmed' => 'The password confirmation does not match.',
+
+            'password_confirmation.required' => 'The password confirmation field is required.',
+            'password_confirmation.max' => 'The password confirmation must not be greater than 255 characters.',
+            'password_confirmation.min' => 'The password confirmation must be at least 6 characters.',
+            'password_confirmation.confirmed' => 'The password confirmation confirmation does not match.',
         ];
     }
 
@@ -48,7 +54,7 @@ class Register extends Component
             'password' => bcrypt($this->password),
         ]);
 
-        $user->assignRole('owner');
+        $user->assignRole('employee');
 
         return redirect()->route('login')->with('success', 'Registration successful! Please login.');
     }

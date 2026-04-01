@@ -14,6 +14,7 @@
 
 <body class="bg-background-2 bg-white text-black dark:bg-neutral-900 dark:text-white">
     <main>
+        @include('components.header.public-header')
         <div class="min-h-screen flex flex-col bg-white border border-gray-200 shadow-xs rounded-lg dark:bg-neutral-800 dark:border-neutral-700">
             <!-- Body -->
             <div class="flex-1 flex flex-col overflow-y-auto">
