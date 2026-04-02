@@ -28,7 +28,7 @@
                                     </a>
                                     @can('create', App\Models\User::class)
                                         <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-                                        href="{{ route('admin.user.create') }}">
+                                        href="{{ route('admin.create.user') }}">
                                         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
                                             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -100,7 +100,7 @@
                             <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
 
                                 @forelse ($this->users() as $user_key => $user)
-                                    <tr wire:click="edit({{ $user->id }})">
+                                    <tr wire:click="{{ $user->id }}">
                                         <td class="ps-6 py-4 whitespace-nowrap">
                                             <label for="hs-at-with-checkboxes-1" class="flex">
                                                 <input type="checkbox"
@@ -131,15 +131,15 @@
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-end">
-                                            @can('can_delete', $user)
+                                            @can('delete', App\Models\User::class)
                                                 <a wire:click.stop="delete({{ $user->id }})" href="#"
                                                 class="text-red-600 hover:text-red-700 focus:outline-hidden focus:text-red-700 disabled:opacity-50 disabled:pointer-events-none">
                                                 Delete
                                             </a>
                                             @endcan
                                             
-                                            @can('can_update', $user->id)
-                                               <a wire:click.stop href="{{ route('admin.user.edit', $user->id) }}"
+                                            @can('update', App\Models\User::class)
+                                               <a wire:click.stop href="{{ route('admin.edit.user', $user->id) }}"
                                                 class="text-blue-600 hover:text-blue-700 focus:outline-hidden focus:text-blue-700 disabled:opacity-50 disabled:pointer-events-none">
                                                 Edit
                                             </a> 

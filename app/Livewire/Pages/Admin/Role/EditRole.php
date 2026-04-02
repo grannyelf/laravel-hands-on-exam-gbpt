@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Pages\Admin\Role;
 
+use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -10,6 +12,7 @@ use Spatie\Permission\Models\Role;
 
 class EditRole extends Component
 {
+    use AuthorizesRequests;
     //database fields
     public $roleId;
     public $name;
@@ -17,6 +20,9 @@ class EditRole extends Component
 
     public function mount($id)
     {
+        $user = User::findOrFail($id);
+
+        $this->authorize('update', $user);
         $this->roleId = $id;
         $this->loadRoleData();
     }
@@ -29,11 +35,11 @@ class EditRole extends Component
         $this->selectedPermissions = $role->permissions()->pluck('name')->toArray();
     }
 
-        //get all permissions name from the permissions table
+    //get all permissions name from the permissions table
     #[Computed()]
     public function permissions()
     {
-        return Permission::query()->select('id','name')->get();
+        return Permission::query()->select('id', 'name')->get();
     }
 
     //validation of data from the user input/from model binding
@@ -59,6 +65,9 @@ class EditRole extends Component
     //update method with validation, sanitization and updating data to table
     public function update()
     {
+        $role = Role::findById($this->roleId);
+
+        $this->authorize('update', $role);
         $this->validate();
         //sanitize
         $roleName = Str::of($this->name)->trim()->title()->lower();

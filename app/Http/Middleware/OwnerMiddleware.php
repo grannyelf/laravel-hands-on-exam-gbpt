@@ -21,8 +21,8 @@ class OwnerMiddleware
             return redirect()->route('login');
         }
 
-        if (! $user->hasRole('admin')) {
-            abort(403);
+        if (! $user->hasRole('owner')) {
+            abort(403, 'Are you fr dawg?');
         }
 
         return $next($request);

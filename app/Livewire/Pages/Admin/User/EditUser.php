@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages\Admin\User;
 
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
@@ -12,6 +13,8 @@ use Spatie\Permission\Models\Role;
 
 class EditUser extends Component
 {
+    use AuthorizesRequests;
+
     //database fields
     public $userId;
     public $name;
@@ -23,6 +26,10 @@ class EditUser extends Component
 
     public function mount($id)
     {
+        $user = User::findOrFail($id);
+
+        $this->authorize('update', $user);
+
         $this->userId = $id;
         $this->loadUserData(); //this method will load user data
     }
@@ -35,8 +42,6 @@ class EditUser extends Component
         $user = User::query()->with('roles')->findOrFail($this->userId);
         $this->name = $user->name;
         $this->email = $user->email;
-        $this->password = $user->password;
-        $this->password_confirmation = $user->password;
         $this->selectedRole = $user->roles->pluck('name')->toArray();
 
         //initialize roles
@@ -50,8 +55,8 @@ class EditUser extends Component
         return [
             'name' => 'required|string|min:3',
             'email' => 'required|email|unique:users,email,' . $this->userId,
-            'password' => 'required|string|min:6',
-            'password_confirmation' => 'required|string|min:6|same:password',
+            'password' => 'nullable|string|min:6',
+            'password_confirmation' => 'nullable|string|min:6|same:password',
             'selectedRole' => 'required|min:1|exists:roles,name',
         ];
     }
@@ -78,6 +83,9 @@ class EditUser extends Component
     //update method with validation, sanitization and updating data to table
     public function update()
     {
+        $user = User::findOrFail($this->userId);
+
+        $this->authorize('update', $user);
         $this->validate();
 
         //sanitize
@@ -87,14 +95,18 @@ class EditUser extends Component
 
         //create user
         $user = User::findOrFail($this->userId);
-        $user->update([
+        $data = [
             'name' => $name,
             'email' => $email,
-            'password' => Hash::make($this->password),
-        ]);
+        ];
+
+        if(!empty($this->password)) {
+            $data['password'] = Hash::make($this->password);
+        }
+
+        $user->update($data);
 
         //assign roles
-        $user = User::find($this->userId);
         $user->syncRoles($selectedRole);
 
         return redirect()->route('admin.index.user')->with('success', 'User updated successfully.');

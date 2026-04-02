@@ -22,7 +22,7 @@ class AdminMiddleware
         }
 
         if (! $user->hasRole('admin')) {
-            abort(403);
+            abort(403, 'Are you fr dawg?');
         }
 
         return $next($request);

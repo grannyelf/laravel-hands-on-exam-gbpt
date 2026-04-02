@@ -26,14 +26,14 @@ Route::get('/register', Register::class)->name('register');
 Route::post('/logout', function () {
     Auth::logout();
 
-    request()->seesion()->invalidate();
+    request()->session()->invalidate();
     request()->session()->regenerateToken();
 
     return redirect()->route('welcome');
 })->name('logout')->middleware('auth');
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/dashboard', Admin::class)->name('admin.dashboardd');
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', Admin::class)->name('admin.dashboard');
 
     Route::get('/roles/create', CreateRole::class)->name('admin.create.role');
     Route::get('/roles/{id}', EditRole::class)->name('admin.edit.role');
@@ -46,10 +46,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/history/user', Admin::class)->name('admin.history.user');
 });
 
-Route::middleware(['auth', 'owner'])->group(function () {
+Route::middleware(['auth', 'owner'])->prefix('owner')->group(function () {
     Route::get('/dashboard', Owner::class)->name('owner.dashboard');
 });
 
-Route::middleware(['auth', 'employee'])->group(function () {
+Route::middleware(['auth', 'employee'])->prefix('employee')->group(function () {
     Route::get('/dashboard', Employee::class)->name('employee.dashboard');
 });
