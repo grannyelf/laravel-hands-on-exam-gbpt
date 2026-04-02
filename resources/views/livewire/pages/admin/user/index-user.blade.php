@@ -131,14 +131,14 @@
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-end">
-                                            @can('delete', App\Models\User::class)
+                                            @can('delete', $user)
                                                 <a wire:click.stop="delete({{ $user->id }})" href="#"
                                                 class="text-red-600 hover:text-red-700 focus:outline-hidden focus:text-red-700 disabled:opacity-50 disabled:pointer-events-none">
                                                 Delete
                                             </a>
                                             @endcan
                                             
-                                            @can('update', App\Models\User::class)
+                                            @can('update', $user)
                                                <a wire:click.stop href="{{ route('admin.edit.user', $user->id) }}"
                                                 class="text-blue-600 hover:text-blue-700 focus:outline-hidden focus:text-blue-700 disabled:opacity-50 disabled:pointer-events-none">
                                                 Edit

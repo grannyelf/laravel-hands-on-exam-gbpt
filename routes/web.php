@@ -11,6 +11,8 @@ use App\Livewire\Pages\Admin\User\EditUser;
 use App\Livewire\Pages\Admin\User\IndexUser;
 use App\Livewire\Pages\Employee\Dashboard as Employee;
 use App\Livewire\Pages\Owner\Dashboard as Owner;
+use App\Livewire\Pages\Owner\ManageEmployee\CreateOwnersEmployee;
+use App\Livewire\Pages\Owner\ManageEmployee\IndexOwnersEmployee;
 use App\Livewire\Pages\Public\Index;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +50,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 Route::middleware(['auth', 'owner'])->prefix('owner')->group(function () {
     Route::get('/dashboard', Owner::class)->name('owner.dashboard');
+
+    Route::get('/employee/list', IndexOwnersEmployee::class)->name('owner.employee.list');
+    Route::get('/employee/create', CreateOwnersEmployee::class)->name('owner.employee.create');
 });
 
 Route::middleware(['auth', 'employee'])->prefix('employee')->group(function () {

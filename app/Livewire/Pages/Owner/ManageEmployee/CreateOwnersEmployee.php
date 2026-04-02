@@ -5,6 +5,7 @@ namespace App\Livewire\Pages\Owner\ManageEmployee;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 
@@ -15,8 +16,7 @@ class CreateOwnersEmployee extends Component
     public $email;
     public $password;
     public $password_confirmation;
-    public $selectedRole;
-    public $roles = [];
+    public $roles;
 
     //initialize roles on mount
     public function mount()
@@ -33,7 +33,6 @@ class CreateOwnersEmployee extends Component
             'email' => 'required|email:rfc,dns|unique:users,email|max:255',
             'password' => 'required|string|min:6|max:255',
             'password_confirmation' => 'required|string|min:6|same:password|max:255',
-            'selectedRole' => 'required|min:1|exists:roles,name',
         ];
     }
 
@@ -57,10 +56,6 @@ class CreateOwnersEmployee extends Component
             'password_confirmation.min' => 'The password confirmation must be at least 6 characters.',
             'password_confirmation.max' => 'The password confirmation must not exceed 255 characters.',
             'password_confirmation.same' => 'The password confirmation must match the password.',
-
-            'selectedRole.required' => 'Please select at least one role.',
-            'selectedRole.min' => 'Please select at least one role.',
-            'selectedRole.exists' => 'The selected role is invalid.',
         ];
     }
 
@@ -81,14 +76,15 @@ class CreateOwnersEmployee extends Component
         ]);
 
         //sync roles
-        $user->syncRoles($this->selectedRole);
+        $user->assignRole('employee');
 
         //reset form fields after saving
-        $this->reset(['name', 'email', 'password', 'password_confirmation', 'selectedRole']);
+        $this->reset(['name', 'email', 'password', 'password_confirmation']);
 
-        return redirect()->route('admin.index.user')->with('success', 'User created successfully.');
+        return redirect()->route('owner.employee.create')->with('success', 'User created successfully.');
     }
     
+    #[Layout('components.layouts.owner')]
     public function render()
     {
         return view('livewire.pages.owner.manage-employee.create-owners-employee');
