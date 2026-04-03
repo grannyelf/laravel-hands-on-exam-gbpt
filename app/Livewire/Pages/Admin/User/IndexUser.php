@@ -20,8 +20,9 @@ class IndexUser extends Component
     public function users()
     {
         return User::query()
-        ->select('id','name','email','created_at')
+        ->select('id','name','email','created_at', 'created_by')
         ->with('roles:id,name')
+        ->with('creator:id,name')
         ->orderBy('created_at', 'desc')
         ->get();
         // this should show all the users with their roles in the view

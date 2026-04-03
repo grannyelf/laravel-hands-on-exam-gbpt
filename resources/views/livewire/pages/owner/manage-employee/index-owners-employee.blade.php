@@ -13,10 +13,10 @@
                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-neutral-700">
                             <div>
                                 <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-200">
-                                    Users
+                                    Employees
                                 </h2>
                                 <p class="text-sm text-gray-600 dark:text-neutral-400">
-                                    Manage and view all posts
+                                    Manage and view all employees
                                 </p>
                             </div>
 
@@ -26,7 +26,7 @@
                                         href="#">
                                         View all
                                     </a>
-                                    @can('create', App\Models\User::class)
+                                    @can('can-create')
                                         <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
                                         href="{{ route('owner.employee.create') }}">
                                         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -131,14 +131,14 @@
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-end">
-                                            @can('delete', $user)
+                                            @can('can-delete')
                                                 <a wire:click.stop="delete({{ $user->id }})" href="#"
                                                 class="text-red-600 hover:text-red-700 focus:outline-hidden focus:text-red-700 disabled:opacity-50 disabled:pointer-events-none">
                                                 Delete
                                             </a>
                                             @endcan
                                             
-                                            @can('update', $user)
+                                            @can('can-update')
                                                <a wire:click.stop href="{{ route('admin.edit.user', $user->id) }}"
                                                 class="text-blue-600 hover:text-blue-700 focus:outline-hidden focus:text-blue-700 disabled:opacity-50 disabled:pointer-events-none">
                                                 Edit

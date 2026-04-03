@@ -27,7 +27,7 @@
                                         View all
                                     </a>
 
-                                    @can('create', App\Models\User::class)
+                                    @can('can-create')
                                         <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
                                             href="{{ route('admin.create.role') }}">
                                             <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -129,14 +129,14 @@
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="px-6 py-3 text-end">
-                                                @can('delete', App\Models\User::class)
+                                                @can('can-delete')
                                                     <a wire:click.stop="delete({{ $role->id }})" href="#"
                                                         class="text-sm font-medium text-red-600 hover:underline dark:text-red-500">
                                                         Delete
                                                     </a>
                                                 @endcan
 
-                                                @can('update', App\Models\User::class)
+                                                @can('can-update')
                                                     <a wire:click.stop="edit({{ $role->id }})"
                                                         href="{{ route('admin.edit.role', $role->id) }}"
                                                         class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">

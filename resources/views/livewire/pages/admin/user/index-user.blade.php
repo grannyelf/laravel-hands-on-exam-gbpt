@@ -26,7 +26,7 @@
                                         href="#">
                                         View all
                                     </a>
-                                    @can('create', App\Models\User::class)
+                                    @can('can-create')
                                         <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
                                         href="{{ route('admin.create.user') }}">
                                         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -93,6 +93,15 @@
                                         </div>
                                     </th>
 
+                                    <th scope="col" class="px-6 py-3 text-start">
+                                        <div class="flex items-center gap-x-2">
+                                            <span
+                                                class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
+                                                Created By
+                                            </span>
+                                        </div>
+                                    </th>
+
                                     <th scope="col" class="px-6 py-3 text-end"></th>
                                 </tr>
                             </thead>
@@ -122,7 +131,7 @@
 
                                         <td
                                             class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-neutral-400">
-                                            {{ $user->roles->pluck('name')->map(fn($r) => str_replace('_', ' ', $r))->join(', ') }}
+                                            {{ $user->roles->pluck('name')->isNotEmpty() ? $user->roles->pluck('name')->map(fn($r) => str_replace('_', ' ', $r))->join(', ') : 'N/A' }}
                                         </td>
 
                                         <td
@@ -130,15 +139,20 @@
                                             {{ $user->created_at->format('M d, Y') }}
                                         </td>
 
+                                        <td
+                                            class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-neutral-400">
+                                            {{ $user->created_by && $user->creator ? $user->creator->name : 'System' }} {{ $user->created_by && $user->creator ? $user->creator->roles->pluck('name')->map(fn($r) => '('.str_replace('_', ' ', $r).')')->join(' ') : '' }}
+                                        </td>
+
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-end">
-                                            @can('delete', $user)
+                                            @can('can-delete')
                                                 <a wire:click.stop="delete({{ $user->id }})" href="#"
                                                 class="text-red-600 hover:text-red-700 focus:outline-hidden focus:text-red-700 disabled:opacity-50 disabled:pointer-events-none">
                                                 Delete
                                             </a>
                                             @endcan
                                             
-                                            @can('update', $user)
+                                            @can('can-update')
                                                <a wire:click.stop href="{{ route('admin.edit.user', $user->id) }}"
                                                 class="text-blue-600 hover:text-blue-700 focus:outline-hidden focus:text-blue-700 disabled:opacity-50 disabled:pointer-events-none">
                                                 Edit

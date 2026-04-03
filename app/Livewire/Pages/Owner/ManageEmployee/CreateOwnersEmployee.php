@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages\Owner\ManageEmployee;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
@@ -73,6 +74,7 @@ class CreateOwnersEmployee extends Component
             'name' => $name,
             'email' => $email,
             'password' => Hash::make($this->password),
+            'created_by' => Auth::user()->id,
         ]);
 
         //sync roles
