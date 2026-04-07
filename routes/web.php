@@ -36,6 +36,8 @@ Route::post('/logout', function () {
     return redirect()->route('welcome');
 })->name('logout')->middleware('auth');
 
+//admin route
+
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', Admin::class)->name('admin.dashboard');
 
@@ -52,12 +54,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/history/user', HistoryUser::class)->name('admin.history.user');
 });
 
+//shop owner route
+
 Route::middleware(['auth', 'owner'])->prefix('owner')->group(function () {
     Route::get('/dashboard', Owner::class)->name('owner.dashboard');
 
     Route::get('/employee/list', IndexOwnersEmployee::class)->name('owner.employee.list');
     Route::get('/employee/create', CreateOwnersEmployee::class)->name('owner.employee.create');
 });
+
+//employee route
 
 Route::middleware(['auth', 'employee'])->prefix('employee')->group(function () {
     Route::get('/dashboard', Employee::class)->name('employee.dashboard');
