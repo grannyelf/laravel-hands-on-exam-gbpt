@@ -4,7 +4,6 @@ use App\Livewire\Auth\LogIn;
 use App\Livewire\Auth\Register;
 use App\Livewire\Pages\Admin\Dashboard as Admin;
 use App\Livewire\Pages\Admin\History\HistoryUser;
-use App\Livewire\Pages\Admin\ManageUser\IndexManage;
 use App\Livewire\Pages\Admin\Role\CreateRole;
 use App\Livewire\Pages\Admin\Role\EditRole;
 use App\Livewire\Pages\Admin\Role\IndexRole;
@@ -48,8 +47,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/user/create', CreateUser::class)->name('admin.create.user');
     Route::get('/user/{id}', EditUser::class)->name('admin.edit.user');
     Route::get('/user', IndexUser::class)->name('admin.index.user');
-
-    Route::get('/manage/user', IndexManage::class)->name('admin.manage.user');
 
     Route::get('/history/user', HistoryUser::class)->name('admin.history.user');
 });

@@ -6,7 +6,7 @@
                 <h2 class="mb-8 text-xl font-semibold text-gray-800 dark:text-neutral-200">
                     Edit User
                 </h2>
-                @if(session()->has('success'))
+                @if (session()->has('success'))
                     <div class="flex justify-center">
                         <div class="p-3 w-80 mb-5 rounded-4xl bg-black text-center text-green-500">
                             <h1>{{ session('success') }}</h1>
@@ -81,18 +81,19 @@
                         </div>
                         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
                             @forelse ($this->roles as $rKey => $role)
-
                                 <label wire:key='{{ $rKey }}' for="hs-checkbox-in-form-{{ $rKey }}"
                                     class="flex items-center p-3 w-full bg-layer border dark:border-neutral-700 border-layer-line rounded-lg text-sm focus:border-primary-focus focus:ring-primary-focus">
-                                    <input type="radio" name="selectedRole" id="hs-checkbox-in-form-{{ $rKey }}"
-                                        wire:model.defer="selectedRole" value="{{ $role->name }}"
+                                    <input type="radio" name="selectedRole"
+                                        id="hs-checkbox-in-form-{{ $rKey }}" wire:model.defer="selectedRole"
+                                        value="{{ $role->name }}"
                                         class="h-4 w-4 border-gray-300 rounded text-blue-600 focus:ring-blue-500">
                                     <span class="text-sm ms-3 text-muted-foreground-1 dark:text-amber-50">
                                         {{ str_replace('_', ' ', $role->name) }}
                                     </span>
                                     @error('selectedRole')
                                         <div>
-                                            <span class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</span>
+                                            <span
+                                                class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</span>
                                         </div>
                                     @enderror
                                 </label>
@@ -101,10 +102,37 @@
                             @endforelse
                         </div>
 
+                        @php
+                            $selectedRoles = is_array($selectedRole) ? $selectedRole : [$selectedRole];
+                        @endphp
+
+                        @if (!in_array('admin', $selectedRoles) && !in_array('owner', $selectedRoles))
+                            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                                <div>
+                                    <label for="hs-phone-number-1"
+                                        class="block mb-2 text-sm text-gray-700 font-medium dark:text-white">Owners</label>
+                                    <select name="selectedCreator" wire:model.defer="selectedCreator"
+                                        class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                        <option value="">Select Creator</option>
+                                        @foreach ($this->users() as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('selectedCreator')
+                                        <div>
+                                            <span
+                                                class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
+
                     </div>
                     <!-- End Grid -->
 
-                    <div class="mt-6 grid">
+                    <div class="flex justify-end mt-6 grid">
                         <button type="submit"
                             class="w-50 py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">Save</button>
                     </div>

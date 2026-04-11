@@ -4,6 +4,7 @@ namespace App\Livewire\Pages\Admin\User;
 
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
@@ -22,6 +23,7 @@ class EditUser extends Component
     public $password;
     public $password_confirmation;
     public $selectedRole;
+    public $selectedCreator;
     public $roles = [];
 
     public function mount($id)
@@ -34,6 +36,17 @@ class EditUser extends Component
         $this->loadUserData(); //this method will load user data
     }
 
+    #[Computed()]
+    public function users()
+    {
+        return User::query()
+        ->with('creator:id,name', 'roles:id,name')
+        ->where('created_by', Auth::id())
+        ->whereHas('roles', function ($query) {
+            $query->where('name', 'owner');
+        })
+        ->get();
+    }
 
     #[Computed()]
     public function loadUserData()
@@ -47,6 +60,8 @@ class EditUser extends Component
         //initialize roles
         $roles = Role::query()->select('id', 'name')->get();
         $this->roles = $roles;
+
+        $this->selectedCreator = $user->created_by;
     }
 
     //validation rules
@@ -58,6 +73,7 @@ class EditUser extends Component
             'password' => 'nullable|string|min:6',
             'password_confirmation' => 'nullable|string|min:6|same:password',
             'selectedRole' => 'required|min:1|exists:roles,name',
+            'selectedCreator' => 'nullable|exists:users,id',
         ];
     }
 
@@ -77,6 +93,7 @@ class EditUser extends Component
             'selectedRole.required' => 'Please select at least one role.',
             'selectedRole.min' => 'Please select at least one role.',
             'selectedRole.exists' => 'The selected role is invalid.',
+            'selectedCreator.exists' => 'The creator is invalid.',
         ];
     }
 
@@ -92,12 +109,14 @@ class EditUser extends Component
         $name = Str::of($this->name)->trim()->title();
         $email = Str::of($this->email)->trim()->lower();
         $selectedRole = $this->selectedRole;
+        $selectedCreator = $this->selectedCreator;
 
         //create user
         $user = User::findOrFail($this->userId);
         $data = [
             'name' => $name,
             'email' => $email,
+            'created_by' => $selectedCreator,
         ];
 
         if(!empty($this->password)) {
