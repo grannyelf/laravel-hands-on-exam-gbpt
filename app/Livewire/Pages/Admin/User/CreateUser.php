@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
@@ -18,6 +19,7 @@ class CreateUser extends Component
     public $password;
     public $password_confirmation;
     public $selectedRole;
+    public $selectedCreator;
     public $roles = [];
 
     //initialize roles on mount
@@ -25,6 +27,18 @@ class CreateUser extends Component
     {
         $roles = Role::select('id', 'name')->get();
         $this->roles = $roles;
+    }
+
+    #[Computed()]
+    public function users()
+    {
+        return User::query()
+        ->with('creator:id,name', 'roles:id,name')
+        ->where('created_by', Auth::id())
+        ->whereHas('roles', function ($query) {
+            $query->where('name', 'owner');
+        })
+        ->get();
     }
 
     //validation rules
@@ -36,6 +50,7 @@ class CreateUser extends Component
             'password' => 'required|string|min:6|max:255',
             'password_confirmation' => 'required|string|min:6|same:password|max:255',
             'selectedRole' => 'required|min:1|exists:roles,name',
+            'selectedCreator' => 'required_if:selectedRole,employee|exists:users,id',
         ];
     }
 
@@ -63,6 +78,8 @@ class CreateUser extends Component
             'selectedRole.required' => 'Please select at least one role.',
             'selectedRole.min' => 'Please select at least one role.',
             'selectedRole.exists' => 'The selected role is invalid.',
+
+            'selectedCreator.exists' => 'The creator is invalid.',
         ];
     }
 
@@ -74,20 +91,21 @@ class CreateUser extends Component
         //sanitize
         $name = Str::of($this->name)->trim()->title();
         $email = Str::of($this->email)->trim()->lower();
+        $selectedCreator = $this->selectedCreator;
 
         //create user
         $user = User::create([
             'name' => $name,
             'email' => $email,
             'password' => Hash::make($this->password),
-            'created_by' => Auth::user()->id,
+            'created_by' => $selectedCreator === 'employee' ? $selectedCreator : Auth::id(),
         ]);
 
         //sync roles
         $user->syncRoles($this->selectedRole);
 
         //reset form fields after saving
-        $this->reset(['name', 'email', 'password', 'password_confirmation', 'selectedRole']);
+        $this->reset(['name', 'email', 'password', 'password_confirmation', 'selectedRole', 'selectedCreator']);
 
         return redirect()->route('admin.index.user')->with('success', 'User created successfully.');
     }

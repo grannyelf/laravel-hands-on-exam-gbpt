@@ -31,6 +31,15 @@ class IndexUser extends Component
     public function delete($id)
     {
         $user = User::findOrFail($id);
+
+        if ($user->hasRole('owner')) {
+            User::where('created_by', $id)
+                ->whereHas('roles', function ($query) {
+                    $query->where('name', 'employee');
+                })
+                ->update(['created_by' => null]);
+        }
+
         $user->delete();
         // this will delete the user from the database
     }

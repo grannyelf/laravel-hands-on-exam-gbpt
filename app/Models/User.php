@@ -59,4 +59,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(User::class, 'created_by');
     }
+
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class)->withTimestamps();
+    }
 }

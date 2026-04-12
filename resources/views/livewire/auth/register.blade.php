@@ -6,6 +6,13 @@
                 <h2 class="text-xl text-foreground font-bold sm:text-3xl">
                     Sign Up
                 </h2>
+                <p class="mt-2 text-sm text-muted-foreground-2">
+                    Already have an account?
+                    <a class="text-primary decoration-2 hover:underline focus:outline-hidden focus:underline font-medium"
+                        href="{{ route('login') }}">
+                        Sign in here
+                    </a>
+                </p>
             </div>
 
             <!-- Card -->
@@ -15,7 +22,7 @@
                         <label for="hs-feedback-post-comment-name-1"
                             class="block mb-2 text-sm font-medium text-foreground">Full name</label>
                         <input wire:model.defer="name" type="text" id="hs-feedback-post-comment-name-1"
-                            class="py-2.5 sm:py-3 px-4 block w-full bg-layer border-layer-line rounded-lg sm:text-sm text-foreground placeholder:text-muted-foreground-1 focus:border-primary-focus focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none"
+                            class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                             placeholder="Full name">
                         @error('name')
                             <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
@@ -26,7 +33,7 @@
                         <label for="hs-feedback-post-comment-email-1"
                             class="block mb-2 text-sm font-medium text-foreground">Email address</label>
                         <input wire:model.defer="email" type="email" id="hs-feedback-post-comment-email-1"
-                            class="py-2.5 sm:py-3 px-4 block w-full bg-layer border-layer-line rounded-lg sm:text-sm text-foreground placeholder:text-muted-foreground-1 focus:border-primary-focus focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none"
+                            class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                             placeholder="Email address">
                         @error('email')
                             <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
@@ -38,7 +45,7 @@
                         </div>
                         <div class="relative">
                             <input wire:model.defer="password" type="password" id="password" name="password"
-                                class="py-2.5 sm:py-3 px-4 block w-full bg-layer border-layer-line rounded-lg sm:text-sm text-foreground placeholder:text-muted-foreground-1 focus:border-primary-focus focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none"
+                                class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                 required aria-describedby="password-error">
                             <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
                                 <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
@@ -55,11 +62,13 @@
 
                     <div>
                         <div class="flex flex-wrap items-center gap-2">
-                            <label for="password confirmation" class="block text-sm mb-2 text-foreground">Password Confirmation</label>
+                            <label for="password confirmation" class="block text-sm mb-2 text-foreground">Password
+                                Confirmation</label>
                         </div>
                         <div class="relative">
-                            <input wire:model.defer="password_confirmation" type="password" id="password_confirmation" name="password_confirmation"
-                                class="py-2.5 sm:py-3 px-4 block w-full bg-layer border-layer-line rounded-lg sm:text-sm text-foreground placeholder:text-muted-foreground-1 focus:border-primary-focus focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none"
+                            <input wire:model.defer="password_confirmation" type="password" id="password_confirmation"
+                                name="password_confirmation"
+                                class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                 required aria-describedby="password-error">
                             <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
                                 <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"

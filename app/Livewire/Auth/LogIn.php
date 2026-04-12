@@ -25,18 +25,17 @@ class LogIn extends Component
             session()->regenerate();
             if (Auth::user()->hasRole('admin')) {
                 return redirect()->intended(route('admin.dashboard'));
-            }elseif (Auth::user()->hasRole('employee')) {
+            } elseif (Auth::user()->hasRole('employee')) {
                 return redirect()->intended(route('employee.dashboard'));
-            }elseif (Auth::user()->hasRole('owner')) {
+            } elseif (Auth::user()->hasRole('owner')) {
                 return redirect()->intended(route('owner.dashboard'));
             }
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        $this->addError('password', 'The provided credentials do not match our records.');
+        return;
     }
-    
+
     public function render()
     {
         return view('livewire.auth.log-in');

@@ -11,6 +11,12 @@ use App\Livewire\Pages\Admin\User\CreateUser;
 use App\Livewire\Pages\Admin\User\EditUser;
 use App\Livewire\Pages\Admin\User\IndexUser;
 use App\Livewire\Pages\Employee\Dashboard as Employee;
+use App\Livewire\Pages\Employee\Task\CompletedTask;
+use App\Livewire\Pages\Employee\Task\EditTask as EmployeeTaskEdit;
+use App\Livewire\Pages\Employee\Task\ViewTask;
+use App\Livewire\Pages\Owner\AssignTask\CreateTask;
+use App\Livewire\Pages\Owner\AssignTask\EditTask;
+use App\Livewire\Pages\Owner\AssignTask\IndexTask;
 use App\Livewire\Pages\Owner\Dashboard as Owner;
 use App\Livewire\Pages\Owner\ManageEmployee\CreateOwnersEmployee;
 use App\Livewire\Pages\Owner\ManageEmployee\IndexOwnersEmployee;
@@ -58,10 +64,18 @@ Route::middleware(['auth', 'owner'])->prefix('owner')->group(function () {
 
     Route::get('/employee/list', IndexOwnersEmployee::class)->name('owner.employee.list');
     Route::get('/employee/create', CreateOwnersEmployee::class)->name('owner.employee.create');
+
+    Route::get('/task/index', IndexTask::class)->name('owner.task.index');
+    Route::get('/task/create', CreateTask::class)->name('owner.task.create');
+    Route::get('/task/{id}', EditTask::class)->name('owner.task.edit');
 });
 
 //employee route
 
 Route::middleware(['auth', 'employee'])->prefix('employee')->group(function () {
     Route::get('/dashboard', Employee::class)->name('employee.dashboard');
+
+    Route::get('/task/index', ViewTask::class)->name('employee.task.index');
+    Route::get('/task/completed', CompletedTask::class)->name('employee.task.completed');
+    Route::get('/task/{id}', EmployeeTaskEdit::class)->name('employee.task.edit');
 });

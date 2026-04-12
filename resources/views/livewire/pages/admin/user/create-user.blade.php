@@ -6,7 +6,7 @@
                 <h2 class="mb-8 text-xl font-semibold text-gray-800 dark:text-neutral-200">
                     Create User
                 </h2>
-                @if(session()->has('success'))
+                @if (session()->has('success'))
                     <div class="flex justify-center">
                         <div class="p-3 w-80 mb-5 rounded-4xl bg-black text-center text-green-500">
                             <h1>{{ session('success') }}</h1>
@@ -23,12 +23,12 @@
                                 <input wire:model.defer="name" type="text" name="hs-name" id="hs-name"
                                     class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                                 @error('name')
-                                <div>
-                                    <span class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</span>
-                                </div>
+                                    <div>
+                                        <span class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</span>
+                                    </div>
                                 @enderror
-                                </div>
-                            
+                            </div>
+
 
                             <div>
                                 <label for="hs-email"
@@ -36,12 +36,12 @@
                                 <input wire:model.defer="email" type="email" name="hs-email" id="hs-email"
                                     class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                                 @error('email')
-                                <div>
-                                    <span class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</span>
-                                </div>
-                            @enderror
+                                    <div>
+                                        <span class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</span>
+                                    </div>
+                                @enderror
                             </div>
-                            
+
                         </div>
 
                         <!-- Grid -->
@@ -52,12 +52,12 @@
                                 <input wire:model.defer="password" type="password" name="hs-password" id="hs-password"
                                     class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                                 @error('password')
-                                <div>
-                                    <span class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</span>
-                                </div>
-                            @enderror
+                                    <div>
+                                        <span class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</span>
+                                    </div>
+                                @enderror
                             </div>
-                            
+
 
                             <div>
                                 <label for="hs-password-confirmation"
@@ -66,13 +66,13 @@
                                 <input wire:model.defer="password_confirmation" type="password"
                                     name="hs-password-confirmation" id="hs-password-confirmation"
                                     class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-                                    @error('password_confirmation')
-                                <div>
-                                    <span class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</span>
-                                </div>
-                            @enderror
-                                </div>
-                            
+                                @error('password_confirmation')
+                                    <div>
+                                        <span class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</span>
+                                    </div>
+                                @enderror
+                            </div>
+
                         </div>
 
                         <div class="mt-5">
@@ -83,32 +83,52 @@
                         </div>
                         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
                             @forelse ($this->roles as $rKey => $role)
-
                                 <label wire:key='{{ $rKey }}' for="hs-checkbox-in-form-{{ $rKey }}"
                                     class="flex items-center p-3 w-full bg-layer border dark:border-neutral-700 border-layer-line rounded-lg text-sm focus:border-primary-focus focus:ring-primary-focus">
-                                    <input type="radio" name="selectedRole" id="hs-checkbox-in-form-{{ $rKey }}"
-                                        wire:model.defer="selectedRole" value="{{ $role->name }}"
+                                    <input type="radio" name="selectedRole"
+                                        id="hs-checkbox-in-form-{{ $rKey }}" wire:model.live="selectedRole"
+                                        value="{{ $role->name }}"
                                         class="h-4 w-4 border-gray-300 rounded text-blue-600 focus:ring-blue-500">
                                     <span class="text-sm ms-3 text-muted-foreground-1 dark:text-amber-50">
                                         {{ str_replace('_', ' ', $role->name) }}
                                     </span>
-                                    
+
                                 </label>
                             @empty
                                 <p>No Roles Found</p>
                             @endforelse
-                            
+
                             @error('selectedRole')
-                                        <div>
-                                            <span class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</span>
-                                        </div>
-                                    @enderror
+                                <div>
+                                    <span class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</span>
+                                </div>
+                            @enderror
                         </div>
+
+                        @if ($selectedRole === 'employee')
+                            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                                <div class="col-span-full sm:col-span-1">
+                                    <label for="selectedCreator"
+                                        class="block mb-2 text-sm text-gray-700 font-medium dark:text-white">Owners</label>
+                                    <select id="selectedCreator" wire:model.live="selectedCreator"
+                                        class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                        <option value="">Select Creator</option>
+                                        @foreach ($this->users() as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('selectedCreator')
+                                        <span
+                                            class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
 
                     </div>
                     <!-- End Grid -->
 
-                    <div class="mt-6 grid">
+                    <div class="flex justify-end mt-6 grid">
                         <button type="submit"
                             class="w-50 py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">Save</button>
                     </div>

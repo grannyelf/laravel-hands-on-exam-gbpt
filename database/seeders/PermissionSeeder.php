@@ -15,6 +15,9 @@ class PermissionSeeder extends Seeder
         'can-delete',
         'can-view-any',
 
+        'can-create-task',
+        'can-update-task',
+        'can-delete-task',
     ];
     /**
      * Run the database seeds.

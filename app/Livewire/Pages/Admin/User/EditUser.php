@@ -73,7 +73,7 @@ class EditUser extends Component
             'password' => 'nullable|string|min:6',
             'password_confirmation' => 'nullable|string|min:6|same:password',
             'selectedRole' => 'required|min:1|exists:roles,name',
-            'selectedCreator' => 'nullable|exists:users,id',
+            'selectedCreator' => 'required_if:selectedRole,employee|exists:users,id',
         ];
     }
 
@@ -116,7 +116,7 @@ class EditUser extends Component
         $data = [
             'name' => $name,
             'email' => $email,
-            'created_by' => $selectedCreator,
+            'created_by' => $selectedCreator === 'employee' ? $selectedCreator : Auth::id(),
         ];
 
         if(!empty($this->password)) {

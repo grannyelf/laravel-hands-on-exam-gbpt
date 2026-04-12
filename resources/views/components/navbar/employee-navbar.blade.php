@@ -85,13 +85,13 @@ lg:block lg:-translate-x-full lg:end-auto lg:bottom-0"
                     <ul class="flex flex-col gap-y-1">
                         <li>
                             <a class="w-full flex items-center gap-x-2 py-2 px-2.5 text-sm text-sidebar-2-nav-foreground rounded-lg hover:bg-sidebar-2-nav-hover focus:outline-hidden focus:bg-sidebar-2-nav-focus "
-                                href="#">
+                                href="{{ route('employee.task.index') }}">
                                 View Task
                             </a>
                         </li>
                         <li>
                             <a class="w-full flex items-center gap-x-2 py-2 px-2.5 text-sm text-sidebar-2-nav-foreground rounded-lg hover:bg-sidebar-2-nav-hover focus:outline-hidden focus:bg-sidebar-2-nav-focus "
-                                href="#">
+                                href="{{ route('employee.task.completed') }}">
                                 Completed Task
                             </a>
                         </li>

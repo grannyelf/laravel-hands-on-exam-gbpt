@@ -84,7 +84,7 @@
                                 <label wire:key='{{ $rKey }}' for="hs-checkbox-in-form-{{ $rKey }}"
                                     class="flex items-center p-3 w-full bg-layer border dark:border-neutral-700 border-layer-line rounded-lg text-sm focus:border-primary-focus focus:ring-primary-focus">
                                     <input type="radio" name="selectedRole"
-                                        id="hs-checkbox-in-form-{{ $rKey }}" wire:model.defer="selectedRole"
+                                        id="hs-checkbox-in-form-{{ $rKey }}" wire:model.live="selectedRole"
                                         value="{{ $role->name }}"
                                         class="h-4 w-4 border-gray-300 rounded text-blue-600 focus:ring-blue-500">
                                     <span class="text-sm ms-3 text-muted-foreground-1 dark:text-amber-50">

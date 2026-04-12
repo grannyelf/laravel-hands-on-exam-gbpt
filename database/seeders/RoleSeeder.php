@@ -28,6 +28,9 @@ class RoleSeeder extends Seeder
         $owner->syncPermissions([
             'can-create',
             'can-view',
+            'can-create-task',
+            'can-update-task',
+            'can-delete-task',
         ]);
 
         $employee->syncPermissions([
