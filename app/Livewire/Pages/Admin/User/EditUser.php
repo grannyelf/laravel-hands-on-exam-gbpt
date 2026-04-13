@@ -55,7 +55,7 @@ class EditUser extends Component
         $user = User::query()->with('roles')->findOrFail($this->userId);
         $this->name = $user->name;
         $this->email = $user->email;
-        $this->selectedRole = $user->roles->pluck('name')->toArray();
+        $this->selectedRole = $user->roles->pluck('name')->first();
 
         //initialize roles
         $roles = Role::query()->select('id', 'name')->get();
@@ -73,7 +73,7 @@ class EditUser extends Component
             'password' => 'nullable|string|min:6',
             'password_confirmation' => 'nullable|string|min:6|same:password',
             'selectedRole' => 'required|min:1|exists:roles,name',
-            'selectedCreator' => 'required_if:selectedRole,employee|exists:users,id',
+            'selectedCreator' => 'required_if:selectedRole,employee|nullable|exists:users,id',
         ];
     }
 
@@ -116,7 +116,7 @@ class EditUser extends Component
         $data = [
             'name' => $name,
             'email' => $email,
-            'created_by' => $selectedCreator === 'employee' ? $selectedCreator : Auth::id(),
+            'created_by' => $this->selectedRole === 'employee' ? $selectedCreator : Auth::id(),
         ];
 
         if(!empty($this->password)) {

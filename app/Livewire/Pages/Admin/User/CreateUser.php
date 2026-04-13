@@ -50,7 +50,7 @@ class CreateUser extends Component
             'password' => 'required|string|min:6|max:255',
             'password_confirmation' => 'required|string|min:6|same:password|max:255',
             'selectedRole' => 'required|min:1|exists:roles,name',
-            'selectedCreator' => 'required_if:selectedRole,employee|exists:users,id',
+            'selectedCreator' => 'required_if:selectedRole,employee|nullable|exists:users,id',
         ];
     }
 
@@ -98,7 +98,7 @@ class CreateUser extends Component
             'name' => $name,
             'email' => $email,
             'password' => Hash::make($this->password),
-            'created_by' => $selectedCreator === 'employee' ? $selectedCreator : Auth::id(),
+            'created_by' => $this->selectedRole === 'employee' ? $selectedCreator : Auth::id(),
         ]);
 
         //sync roles
