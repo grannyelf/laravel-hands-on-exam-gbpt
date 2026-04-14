@@ -8,12 +8,18 @@ use Illuminate\Auth\Access\Response;
 
 class TaskPolicy
 {
+    public function before(User $user)
+    {
+        if ($user->hasRole('admin')) {
+            return true;
+        }
+    }
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->hasAnyRole(['owner', 'employee']);
     }
 
     /**
@@ -21,7 +27,7 @@ class TaskPolicy
      */
     public function view(User $user, Task $task): bool
     {
-        return false;
+        return $user->hasAnyRole(['owner', 'employee']);
     }
 
     /**
@@ -29,7 +35,7 @@ class TaskPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->hasAnyRole(['owner']);
     }
 
     /**
@@ -37,7 +43,7 @@ class TaskPolicy
      */
     public function update(User $user, Task $task): bool
     {
-        return false;
+        return $user->hasAnyRole(['owner', 'employee']);
     }
 
     /**
@@ -45,7 +51,7 @@ class TaskPolicy
      */
     public function delete(User $user, Task $task): bool
     {
-        return false;
+        return $user->hasAnyRole(['owner']);
     }
 
     /**
