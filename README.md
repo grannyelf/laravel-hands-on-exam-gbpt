@@ -7,8 +7,11 @@ First you need to download the file inside the green button named "<> Code".
 <p align="center"><img src="https://drive.google.com/uc?export=view&id=1msbwRBrW8v02IlczqsmCqTA-fvKs9f3Y" width="600" alt="Clone step 1"></p>
 <p align="center"><img src="https://drive.google.com/uc?export=view&id=1bhD41TE9AH2jQ2k6EstX_qMN32y9eesN" width="600" alt="Clone step 2"></p>
 
-Once you downloaded the file, locate the composed file on wherever you put it, if it's in "Downloads" folder, open the composed file and copy the folder inside it then go to "C:\laragon\www" and paste the folder.
+Once you downloaded the zip, locate the zip on wherever you put it, if it's in "Downloads" folder, open the zip and copy the folder inside it then go to "C:\laragon\www" and paste the folder.
 </br>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1ZWpTCGztlB6kb8evM-GdQ8XlCbZCo7-N" width="600" alt="Clone step 2"></p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1dkjhDJA72riOt27P8afS87ecAFFOP4wG" width="600" alt="Clone step 2"></p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1C1mo1gZHJMekB3Deag8dq_qfc2n5LoED" width="600" alt="Clone step 2"></p>
 
 Now open the "File" at the top or open "Open Folder", this should open "C:\laragon\www" or the custom folder location you put in, once it popup a small window, locate the folder then click and click "Open Folder"
 </br>
