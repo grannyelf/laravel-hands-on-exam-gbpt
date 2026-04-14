@@ -59,13 +59,13 @@
                         <div class="mt-auto">
                             <a class="py-2 px-3 w-full inline-flex justify-center items-center gap-x-2 text-sm font-medium text-nowrap rounded-xl bg-primary border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-focus transition disabled:opacity-50 disabled:pointer-events-none"
                                 href="{{ route('employee.task.edit', $task->task->id) }}">
-                                Edit Details
+                                View Details
                             </a>
                         </div>
                     </div>
                 </div>
             @empty
-                <span>No animals found.</span>
+                <span>No tasks found.</span>
             @endforelse
             <!-- End Card -->
         </div>

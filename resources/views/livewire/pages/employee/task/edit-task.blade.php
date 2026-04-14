@@ -4,7 +4,7 @@
             <!-- Card -->
             <div class="flex flex-col border border-gray-200 rounded-xl p-4 sm:p-6 lg:p-8 dark:border-neutral-700">
                 <h2 class="mb-8 text-xl font-semibold text-gray-800 dark:text-neutral-200">
-                    Edit Task
+                    Task Details
                 </h2>
                 @if (session()->has('success'))
                     <div class="flex justify-center">
