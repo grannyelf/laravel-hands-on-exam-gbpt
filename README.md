@@ -22,7 +22,7 @@ Now open the "File" at the top or open "Open Folder", this should open "C:\larag
 
 Then, open TERMINAL and type this inside the TERMINAL in order:
 (Note: Turn on your laravel first if it's not turned on yet)
-- composer install
+- composer install (just do it again if you encounter an error)
 - npm install preline@3.2.3
 - npm audit fix
 - npm run build
@@ -54,7 +54,7 @@ Now once the file destination pop-up, go to this file location "C:\laragon\www" 
 <p align="center"><img src="https://drive.google.com/uc?export=view&id=1mhqt9rV5pIHCt0y4YUQZ5ZL6syoMPsY1" width="600" alt="Clone step 5"></p>
 Then, open TERMINAL and type this inside the TERMINAL in order:
 (Note: Turn on your laravel first if it's not turned on yet)
-- composer install
+- composer install (just do it again if you encounter an error)
 - npm install preline@3.2.3
 - npm audit fix
 - npm run build
