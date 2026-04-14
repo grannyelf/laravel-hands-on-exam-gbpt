@@ -15,6 +15,10 @@ Once you downloaded the zip, locate the zip on wherever you put it, if it's in "
 
 Now open the "File" at the top or open "Open Folder", this should open "C:\laragon\www" or the custom folder location you put in, once it popup a small window, locate the folder then click and click "Open Folder"
 </br>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1b0j4j3rkHm1gLJCOKe0vXzCuC-AOe4iY" width="600" alt="Clone step 2"></p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1CBobcuVa1p53SenHMzwjGra2xRNu-3_i" width="600" alt="Clone step 2"></p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1K_COgknRolt7GMw8WYiOs7Jw5kDv2WIZ" width="600" alt="Clone step 2"></p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1aELt77NwZuPqtwjstQo1WJQxAAF8j8fU" width="600" alt="Clone step 2"></p>
 
 Then, open TERMINAL and type this inside the TERMINAL in order:
 (Note: Turn on your laravel first if it's not turned on yet)
